@@ -14,6 +14,7 @@
 #    See the License for the specific language governing permissions and
 #    limitations under the License.
 
+import os
 from dataclasses import dataclass, field
 import json
 import math
@@ -26,6 +27,7 @@ from torch.utils.data import Dataset
 import transformers
 from transformers import Trainer
 from transformers.trainer_pt_utils import LabelSmoother
+import wandb
 
 from fastchat.conversation import SeparatorStyle
 from fastchat.model.model_adapter import get_conversation_template
@@ -378,6 +380,11 @@ def train():
     # Load data
     data_module = make_supervised_data_module(tokenizer=tokenizer, data_args=data_args)
     
+    # Set up wandb
+    os.environ["WANDB_PROJECT"]="character-llm-project"
+    os.environ["WANDB_LOG_MODEL"]="true"
+    os.environ["WANDB_WATCH"]="false"  
+
     # Start trainner
     trainer = Trainer(
         model=model, tokenizer=tokenizer, args=training_args, **data_module
