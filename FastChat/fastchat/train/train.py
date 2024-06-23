@@ -319,8 +319,17 @@ def make_supervised_data_module(
 
     rank0_print("Loading data...")
 
-    train_json = json.load(open(data_args.data_path, "r"))
-    train_dataset = dataset_cls(train_json, tokenizer=tokenizer)
+    # when extension is .json
+    if data_args.data_path.endswith(".json"):
+        train_json = json.load(open(data_args.data_path, "r"))
+        train_dataset = dataset_cls(train_json, tokenizer=tokenizer)
+    # when extension is .jsonl
+    elif data_args.data_path.endswith(".jsonl"):
+        with open(data_args.data_path, "r") as f:
+            train_json = [json.loads(line) for line in f]
+        train_dataset = dataset_cls(train_json, tokenizer=tokenizer)
+    else:
+        raise ValueError("Unsupported data format: only .json and .jsonl are supported.")
 
     if data_args.eval_data_path:
         eval_json = json.load(open(data_args.eval_data_path, "r"))
