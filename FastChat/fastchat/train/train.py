@@ -395,8 +395,10 @@ def train():
         trainer.train()
     model.config.use_cache = True
     trainer.save_state()
+    trainer.save_model()
     safe_save_model_for_hf_trainer(trainer=trainer, output_dir=training_args.output_dir)
 
+    wandb.finish()
 
 if __name__ == "__main__":
     train()
