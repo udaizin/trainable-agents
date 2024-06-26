@@ -6,10 +6,9 @@ from transformers.trainer_utils import get_last_checkpoint
 device = "cuda" if torch.cuda.is_available() else "cpu"
 
 # set up tokenizer and model
-checkpoint_dir = '/work/trainable-agents/models/characte-llm-Voldemort-llama2-7B-wdiff/'
-last_checkpoint = get_last_checkpoint(checkpoint_dir)
-tokenizer = AutoTokenizer.from_pretrained(last_checkpoint)
-model = AutoModelForCausalLM.from_pretrained(last_checkpoint).to(device)
+checkpoint= '/work/trainable-agents/models/Llama2_Voldemort'
+tokenizer = AutoTokenizer.from_pretrained(checkpoint)
+model = AutoModelForCausalLM.from_pretrained(checkpoint).to(device)
 
 '''
 Generate a response from Beethoven model
