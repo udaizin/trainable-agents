@@ -1,1 +1,1 @@
-使い方などはhttps://github.com/choosewhatulikeのREADME.mdを参照してください。
+使い方などは https://github.com/choosewhatulike のREADME.mdを参照してください。
