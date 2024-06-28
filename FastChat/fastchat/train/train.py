@@ -392,10 +392,7 @@ def train():
         trainer.train()
     model.config.use_cache = True
     trainer.save_state()
-    if trainer.is_deepspeed_enabled:
-        trainer.save_model()
-    else:
-        safe_save_model_for_hf_trainer(trainer, training_args.output_dir)
+    trainer.save_model()
 
 if __name__ == "__main__":
     train()
