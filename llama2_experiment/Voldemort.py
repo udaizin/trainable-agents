@@ -20,7 +20,7 @@ Generate a response from Beethoven model
 def generate_response(meta_prompt, character, loc_time, status):
     prompt = meta_prompt.format(character=character, loc_time=loc_time, status=status) + '\n\n'
     inputs = tokenizer([prompt], return_tensors="pt").to(device)
-    outputs = model.generate(**inputs, do_sample=True, temperature=0.5, top_p=0.95, max_new_tokens=50)
+    outputs = model.generate(**inputs, do_sample=True, temperature=0.5, top_p=0.95, max_new_tokens=1000)
     response = tokenizer.decode(outputs[0], skip_special_tokens=True)
     return response
 
